@@ -13,12 +13,12 @@ class EmergercyStopPlugin(octoprint.plugin.StartupPlugin,
     def powerOff(self):
         script=self._settings.get(["powerOffCmd"])
         self._logger.info("Run power off script \"%s\"" % script)
-        #os.system(script)
+        os.system(script)
 
     def powerOn(self):
         script=self._settings.get(["powerOnCmd"])
         self._logger.info("Run power on script \"%s\"" % script)
-        #os.system(script)
+        os.system(script)
 
     def on_after_startup(self):
         self._logger.info("Starting...")
