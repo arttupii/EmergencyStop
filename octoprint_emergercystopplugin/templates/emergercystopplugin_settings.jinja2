@@ -1,0 +1,42 @@
+<form class="form-horizontal">
+
+    <div class="control-group">
+        <label class="control-label">{{ _('Enable plugin') }}</label>
+        <div class="controls">
+          <div class="checkbox">
+              <input type="checkbox" data-bind="checked: settings.plugins.emergercystopplugin.enabled">
+          </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <p>Commands<p>
+        <label class="control-label">{{ _('PowerOff') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.emergercystopplugin.powerOffCmd">
+        </div>
+
+        <label class="control-label">{{ _('PowerOn') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.emergercystopplugin.powerOnCmd">
+        </div>
+
+        <p>GCode received<p>
+        <label class="control-label">{{ _('Shutdown regex') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.emergercystopplugin.powerOffPrinterInputRegex">
+        </div>
+
+        <p>Events<p>
+        <label class="control-label">{{ _('Startup regex') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.emergercystopplugin.powerOnEventRegex">
+        </div>
+        <label class="control-label">{{ _('Shutdown regex') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.emergercystopplugin.powerOffEventRegex">
+        </div>
+
+
+    </div>
+</form>
