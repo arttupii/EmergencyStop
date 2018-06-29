@@ -24,14 +24,13 @@ class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
     def on_after_startup(self):
         self._logger.info("Starting...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
-
     def get_settings_defaults(self):
         return dict(enabled="False",
             powerOffCmd="/home/pi/powerOff.sh",
             powerOnCmd="/home/pi/powerOn.sh",
-            powerOffPrinterInputRegex="Error",
+            powerOffPrinterInputRegex="(Heating failed|system stopped|kill|Printer halted)",
             powerOnEventRegex="Connecting",
-            powerOffEventRegex="(Disconnected|PrintFailed|PowerOff|EStop|PrintCancelling|Error|Shutdown)")
+            powerOffEventRegex="(Disconnected|PrintFailed|PowerOff|EStop|Error|Shutdown)")
 
     def get_template_configs(self):
         return [
@@ -74,6 +73,6 @@ class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
                 self._logger.info("Event matches to %s --> powerOn" % self._settings.get(["powerOnEventRegex"]))
                 self.powerOn()
 
-__plugin_name__ = "EmergencyStopPlugin"
+__plugin_name__ = "emergencystopplugin"
 __plugin_implementation__ = EmergencyStopPlugin()
 __plugin_hooks__ = {"octoprint.comm.protocol.gcode.received": __plugin_implementation__.parse_firmware_line}
