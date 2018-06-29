@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 import re
 import octoprint.plugin
+import os
 
 class EmergercyStopPlugin(octoprint.plugin.StartupPlugin,
                        octoprint.plugin.TemplatePlugin,
