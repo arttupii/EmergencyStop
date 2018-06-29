@@ -22,7 +22,7 @@ class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
         os.system(script)
 
     def on_after_startup(self):
-        self._logger.info("Starting...")
+        self._logger.info("Starting...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 
     def get_settings_defaults(self):
@@ -52,7 +52,6 @@ class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
                 self._logger.info("Printer input matches to %s --> poweroff" % self._settings.get(["powerOffPrinterInputRegex"]))
                 self.powerOff()
         return line
-
     def get_assets(self):
         return dict(
             js=["js/emergencystopplugin.js"],
