@@ -4,7 +4,7 @@ import re
 import octoprint.plugin
 import os
 
-class EmergercyStopPlugin(octoprint.plugin.StartupPlugin,
+class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
                        octoprint.plugin.TemplatePlugin,
                        octoprint.plugin.SettingsPlugin,
                        octoprint.plugin.AssetPlugin,
@@ -55,9 +55,9 @@ class EmergercyStopPlugin(octoprint.plugin.StartupPlugin,
 
     def get_assets(self):
         return dict(
-            js=["js/emergercystopplugin.js"],
-            css=["css/emergercystopplugin.css"],
-            less=["less/emergercystopplugin.less"]
+            js=["js/emergencystopplugin.js"],
+            css=["css/emergencystopplugin.css"],
+            less=["less/emergencystopplugin.less"]
         )
 
     def on_event(self, event, payload):
@@ -75,6 +75,6 @@ class EmergercyStopPlugin(octoprint.plugin.StartupPlugin,
                 self._logger.info("Event matches to %s --> powerOn" % self._settings.get(["powerOnEventRegex"]))
                 self.powerOn()
 
-__plugin_name__ = "EmergercyStopPlugin"
-__plugin_implementation__ = EmergercyStopPlugin()
+__plugin_name__ = "EmergencyStopPlugin"
+__plugin_implementation__ = EmergencyStopPlugin()
 __plugin_hooks__ = {"octoprint.comm.protocol.gcode.received": __plugin_implementation__.parse_firmware_line}
