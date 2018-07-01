@@ -3,6 +3,10 @@ from __future__ import absolute_import
 import re
 import octoprint.plugin
 import os
+import threading
+
+
+
 
 class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
                        octoprint.plugin.TemplatePlugin,
@@ -10,6 +14,8 @@ class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
                        octoprint.plugin.AssetPlugin,
                        octoprint.plugin.EventHandlerPlugin,
                        octoprint.plugin.OctoPrintPlugin):
+
+    fireAlarm=False
 
     def powerOff(self):
         script=self._settings.get(["powerOffCmd"])
@@ -24,10 +30,26 @@ class EmergencyStopPlugin(octoprint.plugin.StartupPlugin,
     def on_after_startup(self):
         self._logger.info("Starting...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
+        def set_interval(sec):
+            def func_wrapper():
+                set_interval(sec)
+                script=self._settings.get(["fireAlarmCmd"])
+                if os.system(script)!=0:
+                    if self.fireAlarm==False:
+                        self.fireAlarm=True   
+                        self._logger.error("FireAlarm triggered...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")                 
+                        self.powerOff()
+                else:
+                    self.fireAlarm=False
+            t = threading.Timer(sec, func_wrapper)
+            t.start()    
+        set_interval(2)
+
     def get_settings_defaults(self):
         return dict(enabled="False",
             powerOffCmd="/home/pi/powerOff.sh",
             powerOnCmd="/home/pi/powerOn.sh",
+            fireAlarmCmd="/home/pi/fireAlarm.sh",
             powerOffPrinterInputRegex="(Heating failed|system stopped|kill|Printer halted)",
             powerOnEventRegex="Connecting",
             powerOffEventRegex="(Disconnected|PrintFailed|PowerOff|EStop|Error|Shutdown)")
